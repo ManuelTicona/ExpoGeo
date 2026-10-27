@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b3d4a">
+  <title>Pesca y caza | Argentina</title>
+  <style>
+    :root {
+      --navy: #0b2938;
+      --teal: #0b6970;
+      --aqua: #8ee3d0;
+      --sand: #f4f0e6;
+      --coral: #ff936f;
+      --ink: #17313b;
+      --muted: #587078;
+      --white: #fffdf8;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--sand); color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .nav {
+      position: absolute; z-index: 5; top: 0; left: 0; width: 100%;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px clamp(20px, 6vw, 84px); color: white;
+    }
+    .brand { font-weight: 850; letter-spacing: .08em; font-size: .9rem; }
+    .nav a:last-child { border: 1px solid #ffffff80; padding: 10px 15px; border-radius: 30px; font-size: .88rem; }
+    .hero {
+      min-height: 92vh; position: relative; overflow: hidden; display: flex;
+      align-items: center; padding: 120px clamp(22px, 9vw, 130px) 80px;
+      color: white; background:
+        radial-gradient(ellipse at 80% 35%, #1b9b9b 0%, transparent 34%),
+        radial-gradient(ellipse at 68% 95%, #176c79 0%, transparent 45%),
+        linear-gradient(125deg, #092b3b 10%, #0b5967 68%, #0d7777);
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border: 1px solid #a4eee033; border-radius: 50%;
+      width: 560px; height: 560px; right: -110px; top: 13%;
+    }
+    .hero::after { width: 410px; height: 410px; right: -35px; top: 23%; }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .2em; font-size: .76rem; font-weight: 800; color: var(--aqua); }
+    h1 { font-size: clamp(3.2rem, 8vw, 7.4rem); line-height: .94; letter-spacing: -.065em; margin: 22px 0; }
+    h1 span { color: var(--aqua); }
+    .hero p { max-width: 510px; color: #e0f3ef; font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
+    .hero-button { display: inline-flex; align-items: center; gap: 12px; margin-top: 20px; padding: 15px 21px; background: var(--aqua); color: var(--navy); font-weight: 800; border-radius: 40px; }
+    .hero-mark { position: absolute; right: 10%; bottom: 12%; font-size: clamp(7rem, 18vw, 16rem); opacity: .12; transform: rotate(-12deg); }
+    section { padding: 100px clamp(22px, 8vw, 112px); }
+    .section-top { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 34px; }
+    .section-top h2 { font-size: clamp(2.2rem, 5vw, 4.2rem); letter-spacing: -.055em; line-height: 1; margin: 10px 0 0; max-width: 650px; }
+    .section-top p { max-width: 300px; color: var(--muted); line-height: 1.6; margin: 0; }
+    .number { font-size: .8rem; font-weight: 900; letter-spacing: .16em; color: var(--teal); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { min-height: 310px; border-radius: 22px; overflow: hidden; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+    .card:nth-child(1) { background: #ccece5; }
+    .card:nth-child(2) { background: #f7d6c3; }
+    .card:nth-child(3) { background: #d6e5ed; }
+    .card .symbol { font-size: 3rem; }
+    .card h3 { font-size: 1.65rem; margin: 20px 0 8px; letter-spacing: -.04em; }
+    .card p { margin: 0; color: #38525b; line-height: 1.55; }
+    .tag { align-self: flex-start; margin-top: 17px; border: 1px solid #17313b40; border-radius: 20px; padding: 6px 10px; font-size: .75rem; font-weight: 800; }
+    .species { background: var(--navy); color: white; }
+    .species .section-top p { color: #c5d8dc; }
+    .species .number { color: var(--aqua); }
+    .species-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .species-box { padding: 28px; border: 1px solid #ffffff25; border-radius: 20px; background: #ffffff0a; }
+    .species-box h3 { margin: 0 0 18px; font-size: 1.25rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip { padding: 9px 13px; border-radius: 30px; color: var(--navy); background: var(--aqua); font-weight: 750; font-size: .88rem; }
+    .species-box:nth-child(2) .chip { background: #ffd0b9; }
+    .species-box:nth-child(3) .chip { background: #d5e8f1; }
+    .species-box:nth-child(4) .chip { background: #f0e8d2; }
+    .warning { background: #ff936f; }
+    .warning-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 45px; align-items: center; }
+    .warning h2 { font-size: clamp(2.6rem, 6vw, 5.2rem); line-height: .96; letter-spacing: -.06em; margin: 15px 0 20px; }
+    .warning p { line-height: 1.7; max-width: 500px; }
+    .warning-visual { min-height: 340px; background: #0b2938; color: white; border-radius: 26px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+    .warning-visual .big-icon { font-size: 6rem; line-height: 1; }
+    .warning-visual strong { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; max-width: 420px; }
+    .warning-visual small { color: #a8e6d9; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; }
+    .economy { background: #e6eee6; }
+    .econ-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .econ-item { background: var(--white); border-radius: 20px; padding: 25px; min-height: 190px; }
+    .econ-item .icon { font-size: 2rem; }
+    .econ-item h3 { margin: 18px 0 7px; }
+    .econ-item p { margin: 0; line-height: 1.55; color: var(--muted); }
+    .hunting { background: #d4e5dc; }
+    .hunt-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; align-items: center; }
+    .hunt-art { min-height: 300px; border-radius: 24px; background: #124d4d; display: grid; place-items: center; color: #a9e7d4; font-size: clamp(7rem, 16vw, 13rem); }
+    .hunt-copy h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .98; letter-spacing: -.06em; margin: 12px 0 20px; }
+    .hunt-copy p { color: #38575b; line-height: 1.7; }
+    .bottom-line { margin-top: 25px; padding: 17px 20px; border-left: 4px solid var(--teal); background: #ffffff80; border-radius: 0 12px 12px 0; font-weight: 750; }
+    footer { background: var(--navy); color: white; padding: 34px clamp(22px, 8vw, 112px); display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    footer span { color: #a8c5c9; font-size: .9rem; }
+    @media (max-width: 760px) {
+      .hero { min-height: 82vh; }
+      .hero-mark { right: 3%; bottom: 4%; }
+      .section-top { display: block; }
+      .section-top p { margin-top: 18px; }
+      .cards, .econ-grid { grid-template-columns: 1fr; }
+      .card { min-height: 250px; }
+      .species-grid, .warning-layout, .hunt-layout { grid-template-columns: 1fr; }
+      section { padding-top: 72px; padding-bottom: 72px; }
+      .warning-visual { min-height: 260px; }
+      .hunt-art { min-height: 230px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="#inicio">ARGENTINA · SECTOR PRIMARIO</a>
+    <a href="#temas">Explorar ↓</a>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="eyebrow">Actividades económicas y ambiente</div>
+      <h1>Pesca <span>&</span><br>caza</h1>
+      <p>Dos actividades del sector primario que aportan alimentos y materias primas, pero pueden generar problemas ambientales si se realizan en exceso o de forma ilegal.</p>
+      <a class="hero-button" href="#temas">Comenzar la exposición <span>↘</span></a>
+    </div>
+    <div class="hero-mark" aria-hidden="true">〰</div>
+  </header>
+
+  <main>
+    <section id="temas">
+      <div class="section-top">
+        <div><div class="number">01 / TIPOS DE PESCA</div><h2>Tres formas de pescar</h2></div>
+        <p>Se diferencian por el lugar donde se desarrollan y las especies que capturan.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="symbol" aria-hidden="true">🌊</div>
+          <div>
+            <h3>Pesca marítima</h3>
+            <p>Se desarrolla en el mar. Es importante en Argentina y gran parte de su producción se exporta.</p>
+            <div class="tag">Mar abierto</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="symbol" aria-hidden="true">⛵</div>
+          <div>
+            <h3>Pesca costera</h3>
+            <p>Se realiza cerca de la costa, principalmente en el litoral pampeano, con embarcaciones pequeñas.</p>
+            <div class="tag">Cerca de la costa</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="symbol" aria-hidden="true">🏞️</div>
+          <div>
+            <h3>Pesca fluvial</h3>
+            <p>Se practica en ríos como el Paraná, el Uruguay y el Río de la Plata. Suele ser artesanal.</p>
+            <div class="tag">Ríos</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="species">
+      <div class="section-top">
+        <div><div class="number">02 / ESPECIES</div><h2>¿Qué se captura?</h2></div>
+        <p>Algunas de las especies mencionadas para cada tipo de pesca.</p>
+      </div>
+      <div class="species-grid">
+        <div class="species-box">
+          <h3>🌊 Marítima</h3>
+          <div class="chips"><span class="chip">Merluza</span><span class="chip">Calamar</span><span class="chip">Langostino</span></div>
+        </div>
+        <div class="species-box">
+          <h3>⛵ Costera</h3>
+          <div class="chips"><span class="chip">Sábalo</span><span class="chip">Dorado</span><span class="chip">Surubí</span></div>
+        </div>
+        <div class="species-box">
+          <h3>🏞️ Fluvial</h3>
+          <div class="chips"><span class="chip">Sábalo</span><span class="chip">Boga</span><span class="chip">Surubí</span></div>
+        </div>
+        <div class="species-box">
+          <h3>📍 Ríos principales</h3>
+          <div class="chips"><span class="chip">Paraná</span><span class="chip">Uruguay</span><span class="chip">Río de la Plata</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="warning">
+      <div class="warning-layout">
+        <div>
+          <div class="number">03 / PROBLEMAS AMBIENTALES</div>
+          <h2>Cuando se pesca demasiado</h2>
+          <p>La <strong>sobrepesca</strong> ocurre cuando se capturan demasiados ejemplares y se pone en peligro la supervivencia de las especies.</p>
+          <p>La <strong>pesca ilegal</strong> también perjudica el ambiente.</p>
+        </div>
+        <div class="warning-visual">
+          <small>Impacto ambiental</small>
+          <div class="big-icon" aria-hidden="true">🐟</div>
+          <strong>Proteger las especies también importa.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="economy">
+      <div class="section-top">
+        <div><div class="number">04 / ECONOMÍA</div><h2>¿Por qué es importante?</h2></div>
+        <p>La pesca aporta recursos y trabajo, aunque su participación en la economía argentina es menor.</p>
+      </div>
+      <div class="econ-grid">
+        <article class="econ-item"><div class="icon" aria-hidden="true">👷</div><h3>Empleo</h3><p>Genera puestos de trabajo.</p></article>
+        <article class="econ-item"><div class="icon" aria-hidden="true">🍽️</div><h3>Alimentos</h3><p>Permite obtener alimentos.</p></article>
+        <article class="econ-item"><div class="icon" aria-hidden="true">📦</div><h3>Exportación</h3><p>Produce bienes destinados a otros países.</p></article>
+      </div>
+    </section>
+
+    <section class="hunting">
+      <div class="hunt-layout">
+        <div class="hunt-art" aria-hidden="true">🦌</div>
+        <div class="hunt-copy">
+          <div class="number">05 / CAZA</div>
+          <h2>La vida silvestre también cuenta</h2>
+          <p>La caza consiste en capturar animales silvestres. Cuando se realiza de manera ilegal o excesiva, puede provocar la disminución e incluso la extinción de algunas especies.</p>
+          <div class="bottom-line">El exceso y la ilegalidad pueden poner en riesgo a las especies.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Pesca & caza · Argentina</strong>
+    <span>Exposición · Sector primario</span>
+  </footer>
+</body>
+</html>
